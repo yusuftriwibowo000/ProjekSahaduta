@@ -1,13 +1,13 @@
-<button class="btn btn-success" title="Tambah Antrean" data-toggle="modal" data-target="#myModal">
+<!-- <button class="btn btn-success" title="Tambah Antrean" data-toggle="modal" data-target="#myModal">
   <i class="fa fa-plus"></i>
   Ambil Antrian
 </button>
-<button class="btn btn-primary" title="Selanjutnya" title="Next" id="add"><i class="fa fa-arrow-circle-right"></i>
+<button type="submit" class="btn btn-primary" title="Selanjutnya" title="Next"><i class="fa fa-arrow-circle-right"></i>
   Selanjutnya
 </button>
 <button class="btn btn-primary" title="Reset" title="Reset" id="reset"><i class="fa fa-arrow-circle-left"></i>
   Reset
-</button>
+</button> -->
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

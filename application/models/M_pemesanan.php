@@ -43,7 +43,7 @@ class M_pemesanan extends CI_Model
 		return $hasil;
 	}
 
-	public function get_noAntrian()
+	public function get_noAntrian() //nomor antrian auto increment dimodal
 	{
 		$query = "SELECT max(no_antrian) as auto FROM tb_pemesanan WHERE tgl_pemesanan=CURDATE() ";
 		$data = $this->db->query($query)->row_array();
@@ -52,7 +52,16 @@ class M_pemesanan extends CI_Model
 		return $kodecount;
 	}
 
-	public function getAll_antri()
+	public function antrianNow() //nomor antrian sekarang
+	{
+		$query = "SELECT sum(nomor_antrian) as auto FROM tb_antrian WHERE tgl_antrian=CURDATE()";
+		$data = $this->db->query($query)->row_array();
+		$max = $data['auto'];
+		$kodecount = $max + 1;
+		return $kodecount;
+	}
+
+	public function getAll_antri() //menampilkan data pasien yang antri hari ini
 	{
 		$this->db->select('tb_pemesanan.*, tb_pasien.nama_pasien, tb_jenis_kelamin.jenis_kelamin');
 		$this->db->from('tb_pemesanan');
@@ -65,7 +74,7 @@ class M_pemesanan extends CI_Model
 		//select * from tb_pemesanan;
 	}
 
-	public function nomorAntrian()
+	public function nomorAntrian() //menampilkan nomor antrian berdasarkan hari ini
 	{
 		$this->db->select('COUNT(no_antrian) as count');
 		$this->db->from('tb_pemesanan');
@@ -88,6 +97,12 @@ class M_pemesanan extends CI_Model
 		$this->id_pegawai = $post["id_pegawai"];
 		$this->db->insert($this->_table, $this);
 	}
+
+	public function editNomor($noAn)
+    {
+        // $this->db->where('tb_pegawai.email', $email);
+        $this->db->update('tb_antrian', $noAn);
+    }
 
 	public function delete($id)
 	{
