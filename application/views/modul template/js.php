@@ -21,65 +21,88 @@
   });
 </script>
 
- <!-- <script>
-var ctx = document.getElementById('canvas');
-var myChart = new Chart(ctx, {
- type: 'pie',
- data: {
-     labels: ['Laki-laki', 'Perempuan'],
-     datasets: [{
-         label: '# of Votes',
-         data: <?php echo json_encode($jumlah_jk);?>,
-         backgroundColor: [
-              'rgba(52, 172, 224,1 )',
-              'rgba(255, 250, 101,1)'
-         ],
-         borderColor: [
-              'rgba(52, 172, 224,1 )',
-              'rgba(255, 177, 66, 1)'
-         ],
-         borderWidth: 1
-     }]
- },
- options: {}
-});
+<!-- password kuat/lemah -->
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('#password').on('input',function(){
+
+        //dapatkan karakter di field password
+        let karakter = $(this).val();
+
+        //hitung karakter dari field password
+        let totalkarakter = karakter.length;
+
+        if(totalkarakter >= 6){
+          $('.status').removeClass('lemah'); //hapus class lemah
+
+          $('.status').text('kuat'); //string menjadi kuat
+          $('.status').addClass('kuat'); //tambah class sukses
+        }else{
+          $('.status').removeClass('kuat'); //hapus class kuat
+
+          $('.status').text('lemah'); //string menjadi lemah
+          $('.status').addClass('lemah'); //tambah class sukses
+        }
+      });
+    });
 </script>
 
-<script>
-var ctx = document.getElementById('canvas2');
-var myChart = new Chart(ctx, {
- type: 'pie',
- data: {
-     labels: ['Islam','Kristen','Katolik','Hindu','Budha','Khonghucu'],
-     datasets: [{
-         label: '# of Votes',
-         data: <?php echo json_encode($jumlah_agama);?>,
-         backgroundColor: [
-              'rgba(51, 217, 178, 1)',
-                'rgba(255, 242, 0, 1)',
-                'rgba(214, 162, 232, 1)',
-                'rgba(52, 172, 224,1)',
-                'rgba(252, 66, 123, 1)',
-                'rgba(234, 181, 67, 1)'
-         ],
-         borderColor: [
-              'rgba(51, 217, 178, 1)',
-                'rgba(255, 242, 0, 1)',
-                'rgba(214, 162, 232, 1)',
-                'rgba(52, 172, 224,1)',
-                'rgba(252, 66, 123, 1)',
-                'rgba(234, 181, 67, 1)'
-         ],
-         borderWidth: 1
-     }]
- },
- options: {}
-});
-</script> -->
+<!-- input umur otomatis -->
+<script type="text/javascript">
+    $(document).ready(function() {
+      var age = "";
+        $('#lahir').datepicker({
+        onSelect: function (value, ui) {
+          var today = new Date();
+          age = today.getFullYear() - ui.selectedYear;
+          $('#usia').val(age);
+        },
+        changeDay: true,
+        changeMonth: true,
+        changeYear: true
+      })
+    })
+</script>
+
+<!-- input umur otomatis -->
+<script type="text/javascript">
+    $(document).ready(function() {
+      var age = "";
+        $('#e_lahir').datepicker({
+        onSelect: function (value, ui) {
+          var today = new Date();
+          age = today.getFullYear() - ui.selectedYear;
+          $('#e_usia').val(age);
+        },
+        changeDay: true,
+        changeMonth: true,
+        changeYear: true
+      })
+    })
+</script>
+
+<!-- nomor hp wajib angka -->
+<script type="text/javascript">
+    $(document).ready(function(){
+      $('#nomor-hp').keyup(function() {
+
+        //dapatkan nomorHP di field 
+        let nomorHP = $(this).val();
+
+        if(!nomorHP.match(/^[0-9]*$/)){
+          alert('Hanya Boleh Angka');
+        }
+      });
+    });
+</script>
 
 
 <!-- jQuery -->
 <script src="<?= base_url(); ?>vendors/jquery/dist/jquery.min.js"></script>
+<!-- <script src="<?php echo base_url(); ?>vendors/jquery/dist/jquery.js"></script> -->
+<!-- Datepicker -->
+<!-- <script src="<?= base_url(); ?>vendors/jquery.js"></script> -->
+<script src="<?= base_url(); ?>vendors/jquery-ui.js"></script>
 <!-- Bootstrap -->
 <script src="<?= base_url(); ?>vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->

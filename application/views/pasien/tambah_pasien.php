@@ -12,56 +12,33 @@
 						<?php
 						echo form_open_multipart(base_url('Pasien/add'));
 						?>
-						<div class="col-md-5">
-						<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-						<link rel="stylesheet" type="text/css" href="build/custom.css">
-						<script type="text/javascript" src="<?php echo base_url()?>vendors/jquery/dist/jquery.js"></script>
-						
+						<div class="col-md-6">
 							<div class="form-group">
-							<script type="text/javascript">
-									$(document).ready(function(){
-										$('#password').on('input',function(){
-
-											//dapatkan karakter di field password
-											let karakter = $(this).val();
-
-											//hitung karakter dari field password
-											let totalkarakter = karakter.length;
-
-											if(totalkarakter >= 6){
-												$('.status').removeClass('lemah'); //hapus class lemah
-
-												$('.status').text('kuat'); //string menjadi kuat
-												$('.status').addClass('kuat'); //tambah class sukses
-											}else{
-												$('.status').removeClass('kuat'); //hapus class kuat
-
-												$('.status').text('lemah'); //string menjadi lemah
-												$('.status').addClass('lemah'); //tambah class sukses
-											}
-										});
-									});
-									</script>
-								<label for="password">Password</label>
+								<label for="password">Password <span class="status lemah">lemah</span> </label>
 								<input type="password" name="password" class="form-control <?php echo form_error('password') ? 'is-invalid' : '' ?>" placeholder="Password" autofocus id="password">
 								<div class="invalid-feedback">
-								<label class="informasi">
-									password anda <span class="status lemah">lemah</span>
-									<?php echo form_error('password') ?>
+								<?php echo form_error('password') ?>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="nama_pasien">Nama Pasien</label>
-								<input type="text" name="nama_pasien" class="form-control <?php echo form_error('nama_pasien') ? 'is-invalid' : '' ?>" placeholder="Nama Pasien">
+								<input type="text" autocomplete="off" name="nama_pasien" class="form-control <?php echo form_error('nama_pasien') ? 'is-invalid' : '' ?>" placeholder="Nama Pasien">
 								<div class="invalid-feedback">
 									<?php echo form_error('nama_pasien') ?>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="tgl_lahir">Tanggal Lahir</label>
-								<input type="date" name="tgl_lahir" class="form-control <?php echo form_error('tgl_lahir') ? 'is-invalid' : '' ?>" placeholder="Tanggal Lahir">
+								<input type="text" autocomplete="off" name="tgl_lahir" class="form-control <?php echo form_error('tgl_lahir') ? 'is-invalid' : '' ?>" placeholder="Tanggal Lahir" id="lahir">
 								<div class="invalid-feedback">
 									<?php echo form_error('tgl_lahir') ?>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="umur">Umur</label>
+								<input type="text" name="umur" class="form-control <?php echo form_error('umur') ? 'is-invalid' : '' ?>" placeholder="Umur" id="usia" readonly>
+								<div class="invalid-feedback">
+									<?php echo form_error('umur') ?>
 								</div>
 							</div>
 							<div class="form-group">
@@ -91,11 +68,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-5">
+						<div class="col-md-6">
 						<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-						
-						<script type="text/javascript" src="<?php echo base_url()?>vendors/jquery/dist/jquery.js"></script>
-						
+						<script type="text/javascript" src="<?php echo base_url()?>vendors/jquery/dist/jquery.js"></script>					
 							<div class="form-group">
 								<label for="id_pendidikan">Pendidikan</label>
                                 <select class="form-control" id="id_pendidikan" name="id_pendidikan">
@@ -133,19 +108,6 @@
 								</div>
 							</div>
 							<div class="form-group">
-							<script type="text/javascript">
-									$(document).ready(function(){
-										$('#nomor-hp').keyup(function() {
-
-											//dapatkan nomorHP di field 
-											let nomorHP = $(this).val();
-
-											if(!nomorHP.match(/^[0-9]*$/)){
-												alert('Hanya Boleh Angka');
-											}
-										});
-									});
-								</script>
 								<label for="no_hp">Nomor HP</label>
 								<input type="text" name="no_hp" class="form-control <?php echo form_error('no_hp') ? 'is-invalid' : '' ?>" placeholder="Nomor HP"
 								 id="nomor-hp">
@@ -162,10 +124,10 @@
 								<input type="submit" class="btn btn-primary" value="Simpan">
 							</div>
 						</div>
+
 						<?php
 						echo form_close();
 						?>
-
 					</div>
 				</div>
 			</div>

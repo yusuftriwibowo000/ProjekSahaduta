@@ -15,6 +15,7 @@
 							?>
 							<input type="hidden" name="no_rm" value="<?php echo $u->no_rm ?>" />
 							<div class="col-md-6">
+								<script type="text/javascript" src="<?php echo base_url()?>vendors/jquery/dist/jquery.js"></script>
 								<!-- <div class="form-group">
 									<label for="password">Password</label>
 									<input type="password" name="password" class="form-control <?php echo form_error('password') ? 'is-invalid' : '' ?>" placeholder="Password" value="<?php echo $u->password ?>">
@@ -31,9 +32,16 @@
 								</div>
 								<div class="form-group">
 									<label for="tgl_lahir">Tanggal Lahir</label>
-									<input type="date" name="tgl_lahir" class="form-control <?php echo form_error('tgl_lahir') ? 'is-invalid' : '' ?>" placeholder="Tanggal Lahir" value="<?php echo $u->tgl_lahir ?>">
+									<input type="text" autocomplete="off" name="tgl_lahir" class="form-control <?php echo form_error('tgl_lahir') ? 'is-invalid' : '' ?>" placeholder="Tanggal Lahir" value="<?php echo $u->tgl_lahir ?>" id="lahir">
 									<div class="invalid-feedback">
 										<?php echo form_error('tgl_lahir') ?>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="umur">Umur</label>
+									<input type="text" name="umur" class="form-control <?php echo form_error('umur') ? 'is-invalid' : '' ?>" placeholder="Umur" value="<?php echo $u->umur ?>" id="usia" readonly>
+									<div class="invalid-feedback">
+										<?php echo form_error('umur') ?>
 									</div>
 								</div>
 								<div class="form-group">

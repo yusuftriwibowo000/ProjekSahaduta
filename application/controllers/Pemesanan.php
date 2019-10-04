@@ -18,6 +18,7 @@ class Pemesanan extends CI_Controller
         $no_antrian = $this->M_pemesanan->get_noAntrian();  //auto increment no_antrian sesuai database
         $antri = $this->M_pemesanan->nomorAntrian();    //Total antrean
         $antrianNow = $this->M_pemesanan->antrianNow();
+        $id_antrian = $this->M_pemesanan->id_antrian();
         $validation = $this->form_validation;   //FORM VALIDATION
         $validation->set_rules('no_rm','No_RM','required', array('required' => '<h2>Nomor RM harus diisi</h2>'));    //kondisi rules sesuai di model
 
@@ -28,7 +29,8 @@ class Pemesanan extends CI_Controller
                 'tb_pemesanan' => $listing,   //variabel "tb_pemesanan" yg dipakai meload data dari tabel
                 'no_antrian'   => $no_antrian, //variabel "no_antrian" yg dipakai untuk auto increment no_antrian
                 'antri'        => $antri, //variabel yg dipakai untuk menampilkan total antrean
-                'antrianNow'   =>$antrianNow,
+                'antrianNow'   => $antrianNow,
+                'id_antrian'   => $id_antrian,
                 'user'         => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
             );
             $this->load->view('dashboard', $data); //memuat view modul template
@@ -56,7 +58,8 @@ class Pemesanan extends CI_Controller
     {
         $antriNow = $this->db->query("SELECT nomor_antrian FROM tb_antrian");
         if($antriNow->row_array() == true){
-                $noAn = array('nomor_antrian' => $this->input->post('antrianNow'), 'tgl_antrian' => date('Y-m-d'));
+                // $id = array('id_antrian' => $this->input->post('id'));
+                $noAn = array('id_antrian' => $this->input->post('id'), 'nomor_antrian' => $this->input->post('antrianNow'), 'tgl_antrian' => date('Y-m-d H:i:s'));
                 $this->M_pemesanan->editNomor($noAn);
                 redirect('Pemesanan');
         }else{
@@ -80,5 +83,11 @@ class Pemesanan extends CI_Controller
         $no_rm = $this->input->post('no_rm');
         $data = $this->M_pemesanan->get_pasien_byId($no_rm);
         echo json_encode($data);
+    }
+
+    public function ambilData()
+    {
+        $dataPasien = $this->M_pemesanan->getAll_antri();
+        echo json_encode($dataPasien);
     }
 }

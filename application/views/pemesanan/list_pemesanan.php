@@ -39,7 +39,6 @@
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="pricing">
                 <div class="title">
-                  <input type="text" name="antrianNow" class="form-control" value="<?php echo set_value('antrianNow', $antrianNow) ?>" placeholder="Nomor Antrian" readonly>
                   <h2>Yang Terpanggil</h2>
                   <h1 id="counter"></h1>
                 </div>
@@ -51,9 +50,15 @@
                 <i class="fa fa-plus"></i>
                 Ambil Antrian
                 </button>
-                <a href="<?php echo base_url('Pemesanan/nomorAntrian') ?>" class="btn btn-primary"><i class="fa fa-arrow-circle-right"></i>
-                Selanjutnya
-                </a>
+                <!-- <?php foreach ($id_antrian as $row) : ?>
+                    <form action="<?= base_url('Pemesanan/nomorAntrian'); ?>" method="post">
+                      <input type="hidden" name="antrianNow" class="form-control" value="<?php echo set_value('antrianNow', $antrianNow) ?>" placeholder="Nomor Antrian" readonly>
+                      <input type="hidden" name="id" class="form-control" value="<?php echo $row->id_antrian; ?>" placeholder="id Antrian" readonly> -->
+                        <button id="add" class="btn btn-primary"><i class="fa fa-arrow-circle-right"></i>
+                        Selanjutnya
+                        </button>
+                    <!-- </form> -->    
+                <!-- <?php endforeach; ?> -->
                 <button class="btn btn-primary" title="Reset" title="Reset" id="reset"><i class="fa fa-arrow-circle-left"></i>
                 Reset
                 </button>
@@ -152,7 +157,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
       </div>
     </div>
   </div>
@@ -182,4 +187,29 @@
  
         });
     </script>
+
+    <!-- <script type="text/javascript">
+
+      ambilData();
+      function ambilData(){
+        $.ajax({
+          type:'POST',
+          url:'<?php echo base_url('Pemesanan/ambilData')?>',
+          dataType:'json',
+          success: function(data){
+            var baris='';
+            for(var i=0; i<data.length; i++){
+              baris += '<tr class="odd gradeX">' +
+                             '<th scope="row">'+ data[i].no_antrian +'</th>'+
+                             '<td>'+ data[i].no_rm +' </td>'+
+                             '<td>'+ data[i].nama_pasien +'</td>'+
+                             '<td>'+ data[i].jenis_kelamin +'</td>'+
+                             '<td>'+ data[i].waktu_pemesanan +'</td>'+
+                        '</tr>';    
+            }
+            $('#target').html(baris);
+          }
+        });
+      }
+    </script> -->    
 <?php echo form_close(); ?>

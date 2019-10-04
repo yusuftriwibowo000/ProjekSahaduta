@@ -27,13 +27,6 @@ class Pegawai extends CI_Controller
         );
         $this->load->view('dashboard', $data);
     }
-    // public function add()
-    // {
-    //     $pasien = $this->M_pegawai;
-    //     $pasien->save();
-    //     $this->session->set_flashdata('success', 'Berhasil disimpan');
-    //     redirect(base_url('pegawai'));
-    // }
 
     public function add(){
         //validasi

@@ -11,23 +11,6 @@ class M_pemesanan extends CI_Model
 	public $no_rm;
 	public $tgl_pemesanan;
 
-	// public function rules()
-	// {
-	// 	return [
-	// 		[
-	// 			'field' => 'no_antrian',
-	// 			'label' => 'Nomor Antrian',
-	// 			'rules' => 'required'
-	// 		],
-
-	// 		[
-	// 			'field' => 'no_rm',
-	// 			'label' => 'Nomor RM',
-	// 			'rules' => 'required',
-	// 			'required' => 'Tidak boleh kosong'
-	// 		],
-	// 	];
-	// }
 
 	function get_pasien_byId($no_rm)
 	{
@@ -55,7 +38,7 @@ class M_pemesanan extends CI_Model
 	public function antrianNow() //nomor antrian sekarang
 	{
 		$query = "SELECT sum(nomor_antrian) as auto FROM tb_antrian WHERE tgl_antrian=CURDATE()";
-		$data = $this->db->query($query)->row_array();
+		$data = $this->db->query($query)->num_rows();
 		$max = $data['auto'];
 		$kodecount = $max + 1;
 		return $kodecount;
@@ -87,7 +70,16 @@ class M_pemesanan extends CI_Model
 		return 0;
 	}
 
-	public function save()
+	public function id_antrian() //id
+	{
+		$this->db->select('tb_antrian.id_antrian');
+		$this->db->from('tb_antrian');
+		$this->db->where('id_antrian = 1');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function save() //mwnyimpan data isian pemesanan
 	{
 		$post = $this->input->post();
 		$this->no_antrian = $post["no_antrian"];
@@ -100,7 +92,7 @@ class M_pemesanan extends CI_Model
 
 	public function editNomor($noAn)
     {
-        // $this->db->where('tb_pegawai.email', $email);
+        $this->db->where('id_antrian', $noAn['id_antrian']);
         $this->db->update('tb_antrian', $noAn);
     }
 

@@ -24,7 +24,6 @@
                 <th>NIK</th>
                 <th>Tanggal Pemesanan</th>
                 <th>Pegawai</th>
-                <!-- <th width="200">Action</th> -->
               </tr>
             </thead>
               <tbody>
@@ -45,9 +44,6 @@
                   <td><?php echo $row->NIK; ?></td>
                   <td><?php echo $row->tgl_pemesanan; ?></td>
                   <td><?php echo $row->nama_pegawai; ?></td>
-                  <!-- <td>
-                    <a href="<?php echo base_url('pasien/delete/' . $row->no_rm) ?>" class="btn btn-danger btn-sm" title="Hapus" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?');"><i class="fa fa-trash"></i></a>
-                  </td> -->
                 </tr>
               <?php endforeach; ?>
             </tbody>

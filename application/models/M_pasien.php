@@ -14,6 +14,7 @@ class M_pasien extends CI_Model
 	public $password;
 	public $nama_pasien;
 	public $tgl_lahir;
+	public $umur;
 	public $alamat;
 	public $nama_kk;
 	public $id_agama;
@@ -45,6 +46,12 @@ class M_pasien extends CI_Model
 			],
 
 			[
+				'field' => 'umur',
+				'label' => 'Umur',
+				'rules' => 'required'
+			],
+
+			[
 				'field' => 'alamat',
 				'label' => 'Alamat',
 				'rules' => 'required'
@@ -53,31 +60,31 @@ class M_pasien extends CI_Model
 			[
 				'field' => 'nama_kk',
 				'label' => 'Nama KK',
-				'rules' => 'required'
+				'rules' => 'required|trim'
 			],
 
 			[
 				'field' => 'id_agama',
 				'label' => 'Agama',
-				'rules' => 'required'
+				'rules' => 'required|in_list['.implode(array_keys($data = array("tb_agama")),',').']',
 			],
 
 			[
 				'field' => 'id_pendidikan',
 				'label' => 'Pendidikan',
-				'rules' => 'required'
+				'rules' => 'required|in_list['.implode(array_keys($data = array("tb_pendidikan")),',').']',
 			],
 
 			[
 				'field' => 'id_pekerjaan',
 				'label' => 'Pekerjaan',
-				'rules' => 'required'
+				'rules' => 'required|in_list['.implode(array_keys($data = array("tb_pekerjaan")),',').']',
 			],
 
 			[
 				'field' => 'id_jenis_kelamin',
 				'label' => 'Jenis Kelamin',
-				'rules' => 'required'
+				'rules' => 'required|in_list['.implode(array_keys($data = array("tb_jenis_kelamin")),',').']',
 			],
 
 			[
@@ -139,10 +146,10 @@ class M_pasien extends CI_Model
 	public function save()
 	{
 		$post = $this->input->post();
-		// $this->kode_barang = uniqid();
 		$this->password = md5($post["password"]);
 		$this->nama_pasien = $post["nama_pasien"];
-		$this->tgl_lahir = $post["tgl_lahir"];
+		$this->tgl_lahir = date('Y-m-d',strtotime($post["tgl_lahir"]));
+		$this->umur = $post["umur"];
 		$this->alamat = $post["alamat"];
 		$this->nama_kk = $post["nama_kk"];
 		$this->id_agama = $post["id_agama"];

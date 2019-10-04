@@ -14,12 +14,11 @@ class Pasien extends CI_Controller
 
 	public function index()
 	{
-		// $this->M_login->keamananLogout();
 		$listing = $this->M_pasien->getAll();
 		$data = array(
 			'title' 	 => 'Pasien',
 			'isi'		 => 'pasien/list_pasien',
-			'tb_pasien' => $listing,
+			'tb_pasien'  => $listing,
 			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
 		);
 		$this->load->view('dashboard', $data);
@@ -55,7 +54,7 @@ class Pasien extends CI_Controller
 
 		if ($this->M_pasien->delete($id)) {
 			$this->session->set_flashdata('success', 'Data berhasil dihapus');
-			redirect(base_url('pasien'));
+			redirect(base_url('Pasien'));
 		}
 	}
 
@@ -73,15 +72,22 @@ class Pasien extends CI_Controller
 			'tb_pasien' => $pasien,
 			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
 		);
-		$this->load->view('dashboard', $data);
+		$this->load->view("dashboard", $data);
 	}
 
 	function update()
 	{
+		// $pasien = $this->M_pasien;
+		// $validation = $this->form_validation;
+		// $validation->set_rules($pasien->rules());
+		// if ($validation->run() === FALSE) {
+		// 	redirect("/pasien/edit/2");
+		// }else{
 		$no_rm = $this->input->post('no_rm');
 		// $password = $this->input->post('password');
 		$nama_pasien = $this->input->post('nama_pasien');
-		$tgl_lahir = $this->input->post('tgl_lahir');
+		$tgl_lahir = date('Y-m-d', strtotime( $this->input->post('tgl_lahir')));
+		$umur = $this->input->post('umur');
 		$alamat = $this->input->post('alamat');
 		$nama_kk = $this->input->post('nama_kk');
 		$agama = $this->input->post('id_agama');
@@ -95,6 +101,7 @@ class Pasien extends CI_Controller
 			'no_rm' => $no_rm,
 			'nama_pasien' => $nama_pasien,
 			'tgl_lahir' => $tgl_lahir,
+			'umur'	=> $umur,
 			'alamat' => $alamat,
 			'nama_kk' => $nama_kk,
 			'id_agama' => $agama,
@@ -111,6 +118,7 @@ class Pasien extends CI_Controller
 
 		$this->M_pasien->update_data($where, $data, 'tb_pasien');
 		$this->session->set_flashdata('success', 'Data berhasil diedit');
-		redirect(base_url('pasien'));
+		redirect(base_url('Pasien'));
+		// }
 	}
 }

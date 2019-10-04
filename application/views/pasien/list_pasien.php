@@ -23,6 +23,7 @@
                 <th class="column-title">NIK </th>
                 <th class="column-title">Nama Pasien </th>
                 <th class="column-title">Tanggal Lahir </th>
+                <th class="column-title">Umur</th>
                 <th class="column-title">Alamat </th>
                 <th class="column-title">Nama KK </th>
                 <th class="column-title">Agama </th>
@@ -38,12 +39,13 @@
             <tbody>
               <?php $no = 1; ?>
               <?php foreach ($tb_pasien as $row) : ?>
-                <tr>
-                  <td class=" "><?= $no; ?></td>
+                <tr class="odd gradex">
+                  <td scope="row"><?= $no; ?></td>
                   <td class=" "><?php echo $row->no_rm; ?></td>
                   <td class=" "><?php echo $row->NIK; ?></td>
                   <td class=" "><?php echo $row->nama_pasien; ?></td>
                   <td class=" "><?php echo $row->tgl_lahir; ?></td>
+                  <td class=" "><?php echo $row->umur; ?></td>
                   <td class=" "><?php echo $row->alamat; ?></td>
                   <td class=" "><?php echo $row->nama_kk; ?></td>
                   <td class=" "><?php echo $row->agama; ?></td>
@@ -63,3 +65,5 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
