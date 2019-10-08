@@ -40,7 +40,7 @@ class Pasien extends CI_Controller
 				'tb_jenis_kelamin' => $pasien->getJenisKelamin(),
 				'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
 			);
-			$this->load->view("dashboard", $data);
+			$this->load->view("dashboard",$data);
 		} else {
 			$pasien->save();
 			$this->session->set_flashdata('success', 'Berhasil disimpan');

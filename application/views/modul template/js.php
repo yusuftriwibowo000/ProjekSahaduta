@@ -1,4 +1,4 @@
-<!-- Bootstrap core JavaScript-->
+<!-- Bootstrap core JavaScript -->
 <script>
   // Nilai awal
   var counter = 0
@@ -21,7 +21,7 @@
   });
 </script>
 
-<!-- password kuat/lemah -->
+<!-- password kuat/lemah difitur pasien-->
 <script type="text/javascript">
     $(document).ready(function(){
       $('#password').on('input',function(){
@@ -47,7 +47,7 @@
     });
 </script>
 
-<!-- input umur otomatis -->
+<!-- input umur otomatis di fitur pasien-->
 <script type="text/javascript">
     $(document).ready(function() {
       var age = "";
@@ -64,24 +64,7 @@
     })
 </script>
 
-<!-- input umur otomatis -->
-<script type="text/javascript">
-    $(document).ready(function() {
-      var age = "";
-        $('#e_lahir').datepicker({
-        onSelect: function (value, ui) {
-          var today = new Date();
-          age = today.getFullYear() - ui.selectedYear;
-          $('#e_usia').val(age);
-        },
-        changeDay: true,
-        changeMonth: true,
-        changeYear: true
-      })
-    })
-</script>
-
-<!-- nomor hp wajib angka -->
+<!-- nomor hp wajib angka di fitur pasien-->
 <script type="text/javascript">
     $(document).ready(function(){
       $('#nomor-hp').keyup(function() {
@@ -95,6 +78,31 @@
       });
     });
 </script>
+
+<!-- tampil nama pasien otomatis di fitur pemesanan pop up -->
+<script type="text/javascript">
+        $(document).ready(function(){
+             $('#no_rm').on('input',function(){
+                 
+                var no_rm=$(this).val();
+                $.ajax({
+                    type : "POST",
+                    url  : "<?php echo base_url('Pemesanan/get_pasien')?>",
+                    dataType : "JSON",
+                    data : {no_rm: no_rm},
+                    cache:false,
+                    success: function(data){
+                        $.each(data,function(no_rm, nama_pasien){
+                            $('[name="nama"]').val(data.nama_pasien);                             
+                        });
+                         
+                    }
+                });
+                return false;
+           });
+ 
+        });
+    </script>
 
 
 <!-- jQuery -->
@@ -175,3 +183,6 @@
 <script src="<?= base_url(); ?>vendors/starrr/dist/starrr.js"></script>
 <!-- Custom Theme Scripts -->
 <script src="<?= base_url(); ?>build/js/custom.min.js"></script>
+
+<!-- <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

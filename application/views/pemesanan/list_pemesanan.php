@@ -85,13 +85,15 @@
                     <?php
                     foreach ($tb_pemesanan as $row) :
                       ?>
-                      <tbody>
+                      <tbody class="show_product">
                         <tr class="odd gradeX">
                           <th scope="row"><?php echo $row->no_antrian; ?></th>
                           <td><?php echo $row->no_rm; ?></td>
                           <td><?php echo $row->nama_pasien; ?></td>
                           <td><?php echo $row->jenis_kelamin; ?></td>
                           <td><?php echo $row->waktu_pemesanan; ?></td>
+                          <!-- $status = $key['status_pemesanan'] == 'Aktif' ? 'badge badge-success' : 'badge badge-danger'; -->
+                          <!-- <td><span class="<?= $status ?>"><?= $key['status_pemesanan']?></span></td> -->
                           <td>
                             <!-- <a href="<?php echo base_url('dashboard/edit/' . $row->id_pemesanan) ?>" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-edit"></i></a> -->
                             <a href="<?php echo base_url('pemesanan/delete/' . $row->id_pemesanan) ?>" class="btn btn-danger btn-sm" title="Hapus" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?');"><i class="fa fa-trash"></i></a>
@@ -132,14 +134,13 @@
           echo $this->session->flashdata('error');
           echo '</div>';
         }
-
         echo form_open_multipart(base_url('Pemesanan'));
         ?>
 
         <div class="col-md-12">
           <div class="form-group text-left">
             <label>No. RM</label>
-            <input type="text" id="no_rm" name="no_rm" class="form-control" value="<?php echo set_value('no_rm') ?>" placeholder="Nomor RM" autofocus>
+            <input type="text" id="no_rm" name="no_rm" class="form-control" value="<?php echo set_value('no_rm') ?>" placeholder="Nomor RM" autocomplete="off" autofocus>
           </div>
           <div class="form-group text-left">
             <label>Nama Pasien</label>
@@ -149,10 +150,7 @@
             <label>No Antrian</label>
             <input type="text" name="no_antrian" class="form-control" value="<?php echo set_value('no_antrian', $no_antrian) ?>" placeholder="Nomor Antrian" readonly>
           </div>
-          <!-- <div class="form-group text-left"> -->
-            <!-- <label>Nama Pegawai</label> -->
             <input type="hidden" name="id_pegawai" class="form-control" value="<?php echo $user["id_pegawai"]; ?>" placeholder="Id Pegawai" readonly>
-          <!-- </div> -->
         </div>
       </div>
       <div class="modal-footer">
@@ -164,29 +162,61 @@
 </div>
 
 <script type="text/javascript" src="<?php echo base_url()?>vendors/jquery/dist/jquery.js"></script>
-    <script type="text/javascript">
+
+
+<!-- <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script>
         $(document).ready(function(){
-             $('#no_rm').on('input',function(){
-                 
-                var no_rm=$(this).val();
+            // CALL FUNCTION SHOW PRODUCT
+            show_product();
+
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('a1e095bed9535a20e287', {
+                cluster: 'ap1',
+                forceTLS: true
+            });
+
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function(data) {
+                if(data.message === 'success'){
+                    show_product();
+                }
+            });
+
+            // FUNCTION SHOW PRODUCT
+            function show_product(){
                 $.ajax({
-                    type : "POST",
-                    url  : "<?php echo base_url('Pemesanan/get_pasien')?>",
-                    dataType : "JSON",
-                    data : {no_rm: no_rm},
-                    cache:false,
-                    success: function(data){
-                        $.each(data,function(no_rm, nama_pasien){
-                            $('[name="nama"]').val(data.nama_pasien);                             
-                        });
-                         
+                    url   : '<?php echo base_url("Pemesanan/ambilData");?>',
+                    type  : 'GET',
+                    async : true,
+                    dataType : 'json',
+                    success : function(data){
+                        var html = '';
+                        // var count = 1;
+                        var i;
+                        for(i=0; i<data.length; i++){
+                            html += '<tr class="odd gradeX">'+
+                                    '<th class="row">'+ data[i].nomor_antrian +'</td>'+
+                                    '<td>'+ data[i].no_rm +'</td>'+
+                                    '<td>'+ data[i].nama_pasien +'</td>'+
+                                    '<td>'+ data[i].jenis_kelamin +'</td>'+
+                                    '<td>'+ data[i].waktu_pemesanan +'</td>'+
+                                    '<td>'+
+                                        '<a href="javascript:void(0);" class="btn btn-sm btn-info item_edit" data-id="'+ data[i].product_id +'" data-name="'+ data[i].product_name +'" data-price="'+ data[i].product_price +'">Edit</a>'+
+                                        '<a href="javascript:void(0);" class="btn btn-sm btn-danger item_delete" data-id="'+ data[i].product_id +'">Delete</a>'+
+                                    '</td>'+
+                                    '</tr>';
+                        }
+                        $('.show_product').html(html);
                     }
+
                 });
-                return false;
-           });
- 
-        });
-    </script>
+            }
+</script> -->
+
 
     <!-- <script type="text/javascript">
 
