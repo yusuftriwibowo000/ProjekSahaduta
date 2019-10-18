@@ -10,8 +10,64 @@ class M_pemesanan extends CI_Model
 	public $no_antrian;
 	public $no_rm;
 	public $tgl_pemesanan;
+	// public $kode_icdx;
+	// public $pengobatan;
+	// public $tindakan;
+	// public $keadaan_keluar;
+	// public $prognosa;
+	// public $status_pemesanan;
 
 
+	public function rules()
+	{
+		return [
+			[
+				'field' => 'no_rm',
+				'label' => 'Nomor RM',
+				'rules' => 'required'
+			],
+
+
+			[
+				'field' => 'no_antrian',
+				'label' => 'Nomor Antrian',
+				'rules' => 'required'
+			],
+
+			[
+				'field' => 'kode_icdx',
+				'label' => 'Kode Penyakit',
+				'rules' => 'required'
+			],
+
+			[
+				'field' => 'pengobatan',
+				'label' => 'Pengobatan',
+				'rules' => 'required'
+			],
+
+			[
+				'field' => 'tindakan',
+				'label' => 'Tindakan',
+				'rules' => 'required'
+			],
+
+			[
+				'field' => 'keadaan_keluar',
+				'label' => 'Keadaan Keluar',
+				'rules' => 'required|in_list[Pulang,Rawat Inap,Rujuk]'
+			],
+
+			[
+				'field' => 'prognosa',
+				'label' => 'Prognosa',
+				'rules' => 'required|in_list[Sembuh,Baik,Buruk,Tidak Tentu/Cenderung Sembuh,Tidak Tentu/Cenderung Baik]'
+			],
+
+		];
+	}
+
+	//menampilkan no_rm dan nama_pasien dari tb_pasien
 	function get_pasien_byId($no_rm)
 	{
 		$hsl = $this->db->query("SELECT * FROM tb_pasien WHERE no_rm = '$no_rm'");
@@ -20,6 +76,21 @@ class M_pemesanan extends CI_Model
 				$hasil = array(
 					'no_rm' => $data->no_rm,
 					'nama_pasien' => $data->nama_pasien,
+				);
+			}
+		}
+		return $hasil;
+	}
+
+	//menampilkan kode_icdx dan nama_penyakit dari tb_penyakit
+	function get_penyakit_byId($kode_icdx)
+	{
+		$hsl = $this->db->query("SELECT * FROM tb_penyakit WHERE kode_icdx = '$kode_icdx'");
+		if ($hsl->num_rows() > 0) {
+			foreach ($hsl->result() as $data) {
+				$hasil = array(
+					'kode_icdx' => $data->kode_icdx,
+					'nama_penyakit' => $data->nama_penyakit,
 				);
 			}
 		}
@@ -79,7 +150,7 @@ class M_pemesanan extends CI_Model
 		return $query->result();
 	}
 
-	public function save() //mwnyimpan data isian pemesanan
+	public function save() //menyimpan data isian pemesanan
 	{
 		$post = $this->input->post();
 		$this->no_antrian = $post["no_antrian"];
@@ -90,12 +161,52 @@ class M_pemesanan extends CI_Model
 		$this->db->insert($this->_table, $this);
 	}
 
+	//tampil data pemesanan berdasarkan id_pemesanan
+	public function detail_diagnosa($id)
+	{
+		$this->db->select('tb_pemesanan.*, tb_pasien.nama_pasien');
+		$this->db->from('tb_pemesanan');
+		$this->db->join('tb_pasien','tb_pasien.no_rm = tb_pemesanan.no_rm');
+		$this->db->where(array('id_pemesanan'=>$id));
+		$query = $this->db->get();
+		return $query->row();
+		// return $this->db->get_where($this->_table, ["id_pemesanan" =>$id])->row();
+	}
+
+	//update data pemesanan
+	public function update($data, $id)
+	{
+		$data = array(
+			'id_pemesanan' => $this->input->post('id'),
+			'no_antrian' => $this->input->post('no_antrian'),
+			'no_rm' => $this->input->post('no_rm'),
+			'kode_icdx' => $this->input->post('kode_icdx'),
+			'pengobatan' => $this->input->post('pengobatan'),
+			'tindakan' => $this->input->post('tindakan'),
+			'keadaan_keluar' => $this->input->post('keadaan_keluar'),
+			'prognosa' => $this->input->post('prognosa'),
+			'status_pemesanan' => $this->input->post('status_pemesanan'),
+		);
+		// $post = $this->input->post();
+		// $this->id_pemesanan = $post["id"];
+		// $this->no_antrian = $post["no_antrian"];
+		// $this->no_rm = $post["no_rm"];
+		// $this->kode_icdx = $post["kode_icdx"];
+		// $this->pengobatan = $post["pengobatan"];
+		// $this->tindakan = $post["tindakan"];
+		// $this->keadaan_keluar = $post["keadaan_keluar"];
+		// $this->prognosa = $post["prognosa"];
+		// $this->status_pemesanan = $post["status_pemesanan"];
+		$this->db->update($this->_table, $data, array('id_pemesanan'=>$id));
+	}
+
 	public function editNomor($noAn)
     {
         $this->db->where('id_antrian', $noAn['id_antrian']);
         $this->db->update('tb_antrian', $noAn);
     }
 
+    //hapus data berdasarkan id_pemesanan
 	public function delete($id)
 	{
 		return $this->db->delete($this->_table, array("id_pemesanan" => $id));

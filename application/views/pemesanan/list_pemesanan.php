@@ -79,11 +79,13 @@
                         <th>Nama Pasien</th>
                         <th>Jenis Kelamin</th>
                         <th>Waktu Pemesanan</th>
+                        <th>Status Pemesanan</th>
                         <th width="200">Action</th>
                       </tr>
                     </thead>
                     <?php
                     foreach ($tb_pemesanan as $row) :
+                      $statusClass = $row->status_pemesanan == 'Aktif' ? 'badge badge-success' : 'badge badge-danger'
                       ?>
                       <tbody class="show_product">
                         <tr class="odd gradeX">
@@ -92,11 +94,10 @@
                           <td><?php echo $row->nama_pasien; ?></td>
                           <td><?php echo $row->jenis_kelamin; ?></td>
                           <td><?php echo $row->waktu_pemesanan; ?></td>
-                          <!-- $status = $key['status_pemesanan'] == 'Aktif' ? 'badge badge-success' : 'badge badge-danger'; -->
-                          <!-- <td><span class="<?= $status ?>"><?= $key['status_pemesanan']?></span></td> -->
+                          <td><span class="<?php echo $statusClass ?>"><?= $row->status_pemesanan;?></span></td>
                           <td>
-                            <!-- <a href="<?php echo base_url('dashboard/edit/' . $row->id_pemesanan) ?>" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-edit"></i></a> -->
-                            <a href="<?php echo base_url('pemesanan/delete/' . $row->id_pemesanan) ?>" class="btn btn-danger btn-sm" title="Hapus" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?');"><i class="fa fa-trash"></i></a>
+                            <a href="<?php echo base_url('pemesanan/detail_pemesanan/'.$row->id_pemesanan) ?>" class="btn btn-primary btn-sm" title="detail"><i class="fa fa-edit"> Detail</i></a>
+                            <a href="<?php echo base_url('pemesanan/delete/' . $row->id_pemesanan) ?>" class="btn btn-danger btn-sm" title="Hapus" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?');"><i class="fa fa-trash"> Hapus</i></a>
                           </td>
                         </tr>
                       <?php endforeach; ?>

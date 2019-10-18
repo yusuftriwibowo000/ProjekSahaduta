@@ -66,25 +66,25 @@ class M_pasien extends CI_Model
 			[
 				'field' => 'id_agama',
 				'label' => 'Agama',
-				'rules' => 'required|in_list['.implode(array_keys($data = array("tb_agama")),',').']',
+				'rules' => 'required|in_list['.implode(array_keys($data = array("1","2","3","4","5","6","7")),",").']'
 			],
 
 			[
 				'field' => 'id_pendidikan',
 				'label' => 'Pendidikan',
-				'rules' => 'required|in_list['.implode(array_keys($data = array("tb_pendidikan")),',').']',
+				'rules' => 'required|in_list['.implode(array_keys($data = array("1","2","3","4","5","6","7")),",").']'
 			],
 
 			[
 				'field' => 'id_pekerjaan',
 				'label' => 'Pekerjaan',
-				'rules' => 'required|in_list['.implode(array_keys($data = array("tb_pekerjaan")),',').']',
+				'rules' => 'required|in_list['.implode(array_keys($data = array("1","2","3","4","5","6","7")),",").']'
 			],
 
 			[
 				'field' => 'id_jenis_kelamin',
 				'label' => 'Jenis Kelamin',
-				'rules' => 'required|in_list['.implode(array_keys($data = array("tb_jenis_kelamin")),',').']',
+				'rules' => 'required|in_list['.implode(array_keys($data = array("1","2","3")),",").']'
 			],
 
 			[

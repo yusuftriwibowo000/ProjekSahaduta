@@ -104,6 +104,31 @@
         });
     </script>
 
+    <!-- tampil nama penyakit otomatis di fitur pemesanan pop up -->
+<script type="text/javascript">
+        $(document).ready(function(){
+             $('#kode_icdx').on('input',function(){
+                 
+                var kode_icdx=$(this).val();
+                $.ajax({
+                    type : "POST",
+                    url  : "<?php echo base_url('Pemesanan/get_penyakit')?>",
+                    dataType : "JSON",
+                    data : {kode_icdx: kode_icdx},
+                    cache:false,
+                    success: function(data){
+                        $.each(data,function(kode_icdx, nama_penyakit){
+                            $('[name="penyakit"]').val(data.nama_penyakit);                             
+                        });
+                         
+                    }
+                });
+                return false;
+           });
+ 
+        });
+    </script>
+
 
 <!-- jQuery -->
 <script src="<?= base_url(); ?>vendors/jquery/dist/jquery.min.js"></script>

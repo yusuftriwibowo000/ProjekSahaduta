@@ -121,4 +121,5 @@ class Pasien extends CI_Controller
 		redirect(base_url('Pasien'));
 		// }
 	}
+
 }

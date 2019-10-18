@@ -54,6 +54,7 @@ class Pemesanan extends CI_Controller
         }
     }
 
+    //tampil nomor antrian sekarang
     public function nomorAntrian()
     {
         $antriNow = $this->db->query("SELECT nomor_antrian FROM tb_antrian");
@@ -67,6 +68,7 @@ class Pemesanan extends CI_Controller
         }
     }
 
+    //hapus data berdasarkan id_pemesanan
     public function delete($id = null)
     {
         if (!isset($id)) show_404();
@@ -77,11 +79,47 @@ class Pemesanan extends CI_Controller
         }
     }
 
-    //ajax untuk menampilkan data pasien yang telah terdaftar
+    //detail diagnosa pasien setelah antrian dipanggil
+    public function detail_pemesanan($id = null)
+    {
+        if (!isset($id)) redirect('Pemesanan');
+        $validation = $this->form_validation;
+        $validation->set_rules($this->M_pemesanan->rules());
+
+        if($validation->run() == FALSE){
+            $data = array(
+                'title' => 'Detail Diagnosa Pasien',
+                'isi'   => 'pemesanan/detail_pemesanan',
+                'tb_pemesanan' => $this->M_pemesanan->detail_diagnosa($id),
+                'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+            );
+        $this->load->view('dashboard', $data);
+        }else{
+            $this->M_pemesanan->update($data, $id);
+            $this->session->set_flashdata('success', 'Selesai menambahkan penanganan ke pasien');
+        }
+        // $data = array(
+        //         'title' => 'Detail Diagnosa Pasien',
+        //         'isi'   => 'pemesanan/detail_pemesanan',
+        //         'tb_pemesanan' => $this->M_pemesanan->detail_diagnosa($id),
+        //         'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+        //     );
+        // $this->load->view('dashboard', $data);
+    }
+
+    //ajax untuk menampilkan nama pasien berdasarkan no_rm otomatis di pemesanan
     public function get_pasien()
     {
         $no_rm = $this->input->post('no_rm');
         $data = $this->M_pemesanan->get_pasien_byId($no_rm);
+        echo json_encode($data);
+    }
+
+    //ajax untuk menampilkan nama penyakit otomatis berdasarkan kode_icdx nya
+    public function get_penyakit()
+    {
+        $kode_icdx = $this->input->post('kode_icdx');
+        $data = $this->M_pemesanan->get_penyakit_byId($kode_icdx);
         echo json_encode($data);
     }
 

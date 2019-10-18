@@ -14,6 +14,7 @@
                 <th>No.RM</th>
                 <th>Nama Pasien</th>
                 <th>Tanggal Lahir</th>
+                <th>Umur</th>
                 <th>Alamat</th>
                 <th>Nama KK</th>
                 <th>Agama</th>
@@ -36,6 +37,7 @@
                   <th scope="row"><?php echo $row->no_rm; ?></th>
                   <td><?php echo $row->nama_pasien; ?></td>
                   <td><?php echo $row->tgl_lahir; ?></td>
+                  <td><?php echo $row->umur; ?></td>
                   <td><?php echo $row->alamat; ?></td>
                   <td><?php echo $row->nama_kk; ?></td>
                   <td><?php echo $row->agama; ?></td>
