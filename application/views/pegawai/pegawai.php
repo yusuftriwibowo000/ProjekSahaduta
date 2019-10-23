@@ -24,7 +24,7 @@
                                 <th class="column-title">Nama Pegawai </th>
                                 <th class="column-title">alamat </th>
                                 <th class="column-title">No HP </th>
-                                <th class="column-title">Email </th>
+                                <th class="column-title">Username </th>
                                 <th class="column-title">Status </th>
                                 <!-- <th class="column-title">Akun Aktif </th> -->
                                 <th class="column-title">Foto </th>
@@ -46,7 +46,7 @@
                                     <td><?php echo $row->nama_pegawai; ?></td>
                                     <td><?php echo $row->alamat; ?></td>
                                     <td><?php echo $row->no_hp; ?></td>
-                                    <td><?php echo $row->email; ?></td>
+                                    <td><?php echo $row->username; ?></td>
                                     <td><?= $row->nama_status; ?></td>
                                     <!-- <td>
                                         <?php if ($row->isactive == 1) : ?>

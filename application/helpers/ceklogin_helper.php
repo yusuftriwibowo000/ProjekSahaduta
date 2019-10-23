@@ -3,7 +3,7 @@
 function ceklogin()
 {
     $ci = get_instance();
-    if (!$ci->session->userdata('email')) {
+    if (!$ci->session->userdata('username')) {
         redirect('login');
     } else {
         $idStatus = $ci->session->userdata('id_status');

@@ -19,7 +19,7 @@ class Komentar extends CI_Controller
 			'title' 	 => 'Komentar',
 			'isi'		 => 'komentar/komentar',
 			'tb_komentar'  => $listing,
-			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+			'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 		);
 		$this->load->view('dashboard', $data);
 	}

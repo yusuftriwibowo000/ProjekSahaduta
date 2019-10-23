@@ -1,25 +1,27 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_login extends CI_Model {
+class M_login extends CI_Model
+{
 
-public function keamananLogout(){
-    	$username = $this->session->userdata('email');
-    	if(empty($username)){
-    		$this->session->sess_destroy();
-    		redirect('Login');
-    	}
+    public function keamananLogout()
+    {
+        $username = $this->session->userdata('username');
+        if (empty($username)) {
+            $this->session->sess_destroy();
+            redirect('Login');
+        }
     }
 
-public function logout($date, $email)
+    public function logout($date, $username)
     {
-        $this->db->where('tb_pegawai.email', $email);
+        $this->db->where('tb_pegawai.username', $username);
         $this->db->update('tb_pegawai', $date);
     }
 
-public function login($date, $email)
+    public function login($date, $username)
     {
-        $this->db->where('tb_pegawai.email', $email);
+        $this->db->where('tb_pegawai.username', $username);
         $this->db->update('tb_pegawai', $date);
     }
 }

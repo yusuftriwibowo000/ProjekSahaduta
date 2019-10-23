@@ -23,11 +23,10 @@ class Dashboard extends CI_Controller
 			'title' => 'Dashboard',
 			'data' => $this->M_pasien->get_jk(),
 			'data2' => $this->M_pasien->get_agama(),
-			'isi' => 'dashboard/dashboard_1',
-			
+			'isi' => 'dashboard/dashboard_1',		
 			'jumlah'		=> $this->M_Komentar->jumlahKomentar(),
 			'jmlPasien'		=> $this->M_dashboard->jumlahPasien(),
-			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+			'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 		);
 		$this->load->view('dashboard', $data);
 	}

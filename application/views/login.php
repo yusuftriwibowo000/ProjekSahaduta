@@ -28,12 +28,11 @@
             <div class="animate form login_form">
                 <section class="login_content">
                     <form action="<?= base_url('Login'); ?>" method="post">
-
                         <h1>Login Form</h1>
                         <div>
                             <?= $this->session->flashdata('message'); ?>
-                            <input type="text" autofocus class="form-control" placeholder="email" required="" name="email" value="<?= set_value('email'); ?>"/>
-                            <?= form_error('email', '<small class = "text-danger pl-3">', '</small>'); ?>
+                            <input required="" type="text" name="username" class="form-control" placeholder="Username" value="<?= set_value('username'); ?>">
+                            <?= form_error('username', '<small class = "text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div>
                             <input type="password" class="form-control" placeholder="Password" required="" name="password" />

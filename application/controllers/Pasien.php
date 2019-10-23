@@ -19,7 +19,7 @@ class Pasien extends CI_Controller
 			'title' 	 => 'Pasien',
 			'isi'		 => 'pasien/list_pasien',
 			'tb_pasien'  => $listing,
-			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+			'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 		);
 		$this->load->view('dashboard', $data);
 	}
@@ -38,7 +38,7 @@ class Pasien extends CI_Controller
 				'tb_pendidikan' => $pasien->getPendidikan(),
 				'tb_pekerjaan' => $pasien->getPekerjaan(),
 				'tb_jenis_kelamin' => $pasien->getJenisKelamin(),
-				'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+				'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 			);
 			$this->load->view("dashboard",$data);
 		} else {
@@ -70,7 +70,7 @@ class Pasien extends CI_Controller
 			'tb_pekerjaan'  => $this->M_pasien->getPekerjaan(),
 			'tb_jenis_kelamin' => $this->M_pasien->getJenisKelamin(),
 			'tb_pasien' => $pasien,
-			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+			'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 		);
 		$this->load->view("dashboard", $data);
 	}

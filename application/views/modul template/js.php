@@ -107,18 +107,18 @@
     <!-- tampil nama penyakit otomatis di fitur pemesanan pop up -->
 <script type="text/javascript">
         $(document).ready(function(){
-             $('#kode_icdx').on('input',function(){
+             $('#kd_icdx').on('input',function(){
                  
-                var kode_icdx=$(this).val();
+                var kd_icdx=$(this).val();
                 $.ajax({
                     type : "POST",
                     url  : "<?php echo base_url('Pemesanan/get_penyakit')?>",
                     dataType : "JSON",
-                    data : {kode_icdx: kode_icdx},
+                    data : {kd_icdx: kd_icdx},
                     cache:false,
                     success: function(data){
-                        $.each(data,function(kode_icdx, nama_penyakit){
-                            $('[name="penyakit"]').val(data.nama_penyakit);                             
+                        $.each(data,function(kd_icdx, nama_icdx){
+                            $('[name="nama_icdx"]').val(data.nama_icdx);                             
                         });
                          
                     }

@@ -58,7 +58,7 @@
 							<div class="form-group">
 								<label for="id_agama">Agama</label>
                                 <select class="form-control" id="id_agama" name="id_agama">
-                                	<option>Silahkan Pilih</option>
+                                	<option selected disabled>Silahkan Pilih</option>
                                     <?php foreach ($tb_agama as $rows) : ?>
                                         <option value="<?= $rows->id_agama; ?>"><?= $rows->agama; ?></option>
                                     <?php endforeach; ?>
@@ -74,7 +74,7 @@
 							<div class="form-group">
 								<label for="id_pendidikan">Pendidikan</label>
                                 <select class="form-control" id="id_pendidikan" name="id_pendidikan">
-                                	<option>Silahkan Pilih</option>
+                                	<option selected disabled>Silahkan Pilih</option>
                                     <?php foreach ($tb_pendidikan as $rows) : ?>
                                         <option value="<?= $rows->id_pendidikan; ?>"><?= $rows->pendidikan; ?></option>
                                     <?php endforeach; ?>
@@ -86,7 +86,7 @@
 							<div class="form-group">
 								<label for="id_pekerjaan">Pekerjaan</label>
                                 <select class="form-control" id="id_pekerjaan" name="id_pekerjaan">
-                                	<option>Silahkan Pilih</option>
+                                	<option selected disabled>Silahkan Pilih</option>
                                     <?php foreach ($tb_pekerjaan as $rows) : ?>
                                         <option value="<?= $rows->id_pekerjaan; ?>"><?= $rows->pekerjaan; ?></option>
                                     <?php endforeach; ?>
@@ -98,7 +98,7 @@
 							<div class="form-group">
 								<label for="id_jenis_kelamin">Jenis Kelamin</label>
                                 <select class="form-control" id="id_jenis_kelamin" name="id_jenis_kelamin">
-                                	<option>Silahkan Pilih</option>
+                                	<option selected disabled>Silahkan Pilih</option>
                                     <?php foreach ($tb_jenis_kelamin as $rows) : ?>
                                         <option value="<?= $rows->id_jenis_kelamin; ?>"><?= $rows->jenis_kelamin; ?></option>
                                     <?php endforeach; ?>

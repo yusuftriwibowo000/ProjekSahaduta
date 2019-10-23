@@ -10,10 +10,10 @@ class Login extends CI_Controller
     }
     function index()
     {
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_Email');
+        $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
         if ($this->form_validation->run() == false) {
-            $this->load->view('login');
+            $this->load->view('Login');
         } else {
             $this->_login();
         }
@@ -21,41 +21,41 @@ class Login extends CI_Controller
 
     private function _login()
     {
-        $email = $this->input->post('email');
+        $username = $this->input->post('username');
         $password = $this->input->post('password');
-
-        $user = $this->db->get_where('tb_pegawai', ['email' => $email])->row_array();
+        $user = $this->db->get_where('tb_pegawai', ['username' => $username])->row_array();
         //user ada
         if ($user) {
             //user aktif
             // if ($user['isactive'] == 1) {
-                if ($user['pass'] == md5($password)) {
-                    $data = [
-                        'email' => $user['email'],
-                        'id_status' => $user['id_status']
-                    ];
-                    $this->session->set_userdata($data);
-                    if ($user['id_status'] ==  1) {
-                        $date = array('last_login' => date('Y-m-d H:i:s'));
-                        $email = $this->session->userdata('email');
-                        $this->M_login->login($date, $email);
-                        redirect('dashboard');
-                    } else {
-                        $date = array('last_login' => date('Y-m-d H:i:s'));
-                        $email = $this->session->userdata('email');
-                        $this->M_login->login($date, $email);
-                        redirect('pasien');
-                    }
+            if (password_verify($password, $user['pass'])) {
+                $data = [
+                    'username' => $user['username'],
+                    'id_status' => $user['id_status']
+                ];
+                $this->session->set_userdata($data);
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">berhasil</div>');
+                if ($user['id_status'] ==  1) {
+                    $date = array('last_login' => date('Y-m-d H:i:s'));
+                    $username = $this->session->userdata('username');
+                    $this->M_login->login($date, $username);
+                    redirect('Dashboard');
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password</div>');
-                    redirect('login');
+                    $date = array('last_login' => date('Y-m-d H:i:s'));
+                    $username = $this->session->userdata('username');
+                    $this->M_login->login($date, $username);
+                    redirect('pasien');
                 }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password</div>');
+                redirect('login');
+            }
             // } else {
-            //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not active!</div>');
+            //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">username is not active!</div>');
             //     redirect('login');
             // }
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not registered!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">username is not registered!</div>');
             redirect('login');
         }
     }
@@ -64,16 +64,16 @@ class Login extends CI_Controller
         $data = array(
             'title'      => 'Page Not Found',
             'isi'         => 'errors/404',
-            'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+            'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
         );
         $this->load->view('dashboard', $data);
     }
     function logout()
     {
         $date = array('last_update' => date('Y-m-d H:i:s'));
-        $email = $this->session->userdata('email');
-        $this->M_login->logout($date, $email);
-        $this->session->unset_userdata('email');
+        $username = $this->session->userdata('username');
+        $this->M_login->logout($date, $username);
+        $this->session->unset_userdata('username');
         $this->session->unset_userdata('id_status');
         redirect('login');
     }

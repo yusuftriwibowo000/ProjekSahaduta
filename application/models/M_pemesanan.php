@@ -10,13 +10,6 @@ class M_pemesanan extends CI_Model
 	public $no_antrian;
 	public $no_rm;
 	public $tgl_pemesanan;
-	// public $kode_icdx;
-	// public $pengobatan;
-	// public $tindakan;
-	// public $keadaan_keluar;
-	// public $prognosa;
-	// public $status_pemesanan;
-
 
 	public function rules()
 	{
@@ -83,21 +76,22 @@ class M_pemesanan extends CI_Model
 	}
 
 	//menampilkan kode_icdx dan nama_penyakit dari tb_penyakit
-	function get_penyakit_byId($kode_icdx)
+	function get_penyakit_byId($kd_icdx)
 	{
-		$hsl = $this->db->query("SELECT * FROM tb_penyakit WHERE kode_icdx = '$kode_icdx'");
+		$hsl = $this->db->query("SELECT * FROM tb_icdx WHERE kd_icdx = '$kd_icdx'");
 		if ($hsl->num_rows() > 0) {
 			foreach ($hsl->result() as $data) {
 				$hasil = array(
-					'kode_icdx' => $data->kode_icdx,
-					'nama_penyakit' => $data->nama_penyakit,
+					'kd_icdx' => $data->kd_icdx,
+					'nama_icdx' => $data->nama_icdx,
 				);
 			}
 		}
 		return $hasil;
 	}
 
-	public function get_noAntrian() //nomor antrian auto increment dimodal
+	//nomor antrian auto increment dimodal
+	public function get_noAntrian() 
 	{
 		$query = "SELECT max(no_antrian) as auto FROM tb_pemesanan WHERE tgl_pemesanan=CURDATE() ";
 		$data = $this->db->query($query)->row_array();
@@ -106,16 +100,8 @@ class M_pemesanan extends CI_Model
 		return $kodecount;
 	}
 
-	public function antrianNow() //nomor antrian sekarang
-	{
-		$query = "SELECT sum(nomor_antrian) as auto FROM tb_antrian WHERE tgl_antrian=CURDATE()";
-		$data = $this->db->query($query)->num_rows();
-		$max = $data['auto'];
-		$kodecount = $max + 1;
-		return $kodecount;
-	}
-
-	public function getAll_antri() //menampilkan data pasien yang antri hari ini
+	//menampilkan data pasien yang antri hari ini
+	public function getAll_antri() 
 	{
 		$this->db->select('tb_pemesanan.*, tb_pasien.nama_pasien, tb_jenis_kelamin.jenis_kelamin');
 		$this->db->from('tb_pemesanan');
@@ -125,10 +111,10 @@ class M_pemesanan extends CI_Model
 		$this->db->where('tgl_pemesanan = CURDATE()');
 		$query = $this->db->get();
 		return $query->result();
-		//select * from tb_pemesanan;
 	}
 
-	public function nomorAntrian() //menampilkan nomor antrian berdasarkan hari ini
+	//menampilkan jumlah nomor antrian berdasarkan hari ini
+	public function nomorAntrian() 
 	{
 		$this->db->select('COUNT(no_antrian) as count');
 		$this->db->from('tb_pemesanan');
@@ -141,16 +127,22 @@ class M_pemesanan extends CI_Model
 		return 0;
 	}
 
-	public function id_antrian() //id
+	//menampilkan jumlah nomor antrian yang sudah dilayani
+	public function antrianDilayani() 
 	{
-		$this->db->select('tb_antrian.id_antrian');
-		$this->db->from('tb_antrian');
-		$this->db->where('id_antrian = 1');
+		$this->db->select('COUNT(no_antrian) as count');
+		$this->db->from('tb_pemesanan');
+		$this->db->where('tgl_pemesanan = CURDATE() && status_pemesanan = "Sudah Dilayani"');
 		$query = $this->db->get();
-		return $query->result();
+		if ($query->num_rows() > 0) {
+			$row = $query->row();
+			return $row->count;
+		}
+		return 0;
 	}
 
-	public function save() //menyimpan data isian pemesanan
+	//menyimpan data isian pemesanan
+	public function save() 
 	{
 		$post = $this->input->post();
 		$this->no_antrian = $post["no_antrian"];
@@ -170,41 +162,14 @@ class M_pemesanan extends CI_Model
 		$this->db->where(array('id_pemesanan'=>$id));
 		$query = $this->db->get();
 		return $query->row();
-		// return $this->db->get_where($this->_table, ["id_pemesanan" =>$id])->row();
 	}
 
-	//update data pemesanan
-	public function update($data, $id)
+	//update data diagnosa
+	function update_data($where, $data, $table)
 	{
-		$data = array(
-			'id_pemesanan' => $this->input->post('id'),
-			'no_antrian' => $this->input->post('no_antrian'),
-			'no_rm' => $this->input->post('no_rm'),
-			'kode_icdx' => $this->input->post('kode_icdx'),
-			'pengobatan' => $this->input->post('pengobatan'),
-			'tindakan' => $this->input->post('tindakan'),
-			'keadaan_keluar' => $this->input->post('keadaan_keluar'),
-			'prognosa' => $this->input->post('prognosa'),
-			'status_pemesanan' => $this->input->post('status_pemesanan'),
-		);
-		// $post = $this->input->post();
-		// $this->id_pemesanan = $post["id"];
-		// $this->no_antrian = $post["no_antrian"];
-		// $this->no_rm = $post["no_rm"];
-		// $this->kode_icdx = $post["kode_icdx"];
-		// $this->pengobatan = $post["pengobatan"];
-		// $this->tindakan = $post["tindakan"];
-		// $this->keadaan_keluar = $post["keadaan_keluar"];
-		// $this->prognosa = $post["prognosa"];
-		// $this->status_pemesanan = $post["status_pemesanan"];
-		$this->db->update($this->_table, $data, array('id_pemesanan'=>$id));
+		$this->db->where($where);
+		$this->db->update($table, $data);
 	}
-
-	public function editNomor($noAn)
-    {
-        $this->db->where('id_antrian', $noAn['id_antrian']);
-        $this->db->update('tb_antrian', $noAn);
-    }
 
     //hapus data berdasarkan id_pemesanan
 	public function delete($id)

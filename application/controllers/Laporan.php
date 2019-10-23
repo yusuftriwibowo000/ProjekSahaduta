@@ -23,7 +23,7 @@ class Laporan extends CI_Controller
 			'title' 	      => 'Data Laporan Kunjungan Semua',
 			'isi'		 	  => 'laporan/list_laporan_semua',
 			'laporan_semua' => $listing,
-			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+			'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 		);
 		$this->load->view('dashboard', $data);
 	}
@@ -35,7 +35,7 @@ class Laporan extends CI_Controller
 			'title' 	      => 'Data Laporan Kunjungan Hari Ini',
 			'isi'		 	  => 'laporan/list_laporan_harian',
 			'laporan_harian' => $listing,
-			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+			'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 		);
 		$this->load->view('dashboard', $data);
 	}
@@ -47,7 +47,7 @@ class Laporan extends CI_Controller
 			'title' 	      => 'Data Laporan Pemesanan Minggu Ini',
 			'isi'		 	  => 'laporan/list_laporan_mingguan',
 			'laporan_mingguan' => $listing,
-			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+			'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 		);
 		$this->load->view('dashboard', $data);
 	}
@@ -59,7 +59,7 @@ class Laporan extends CI_Controller
 			'title' 	      => 'Data Laporan Pemesanan Bulan Ini',
 			'isi'		 	  => 'laporan/list_laporan_bulanan',
 			'laporan_bulanan' => $listing,
-			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+			'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 		);
 		$this->load->view('dashboard', $data);
 	}
@@ -71,7 +71,7 @@ class Laporan extends CI_Controller
 			'title' 	      => 'Data Laporan Pemesanan Tahun Ini',
 			'isi'		 	  => 'laporan/list_laporan_tahunan',
 			'laporan_tahunan' => $listing,
-			'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array()
+			'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 		);
 		$this->load->view('dashboard', $data);
 	}

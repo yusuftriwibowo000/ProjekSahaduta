@@ -40,28 +40,24 @@
               <div class="pricing">
                 <div class="title">
                   <h2>Yang Terpanggil</h2>
-                  <h1 id="counter"></h1>
+                  <h1><?= $dilayani ?></h1>
                 </div>
               </div>
             </div>
             <div class="x_content">
               <div class="pricing_footer">
-                <button class="btn btn-success" title="Tambah Antrean" data-toggle="modal" data-target="#myModal">
-                <i class="fa fa-plus"></i>
-                Ambil Antrian
+                <button class="btn btn-primary" title="Ambil Antrian" data-toggle="modal" data-target="#myModal">
+                    <i class="fa fa-plus"></i>
+                    Ambil Antrian
                 </button>
-                <!-- <?php foreach ($id_antrian as $row) : ?>
-                    <form action="<?= base_url('Pemesanan/nomorAntrian'); ?>" method="post">
-                      <input type="hidden" name="antrianNow" class="form-control" value="<?php echo set_value('antrianNow', $antrianNow) ?>" placeholder="Nomor Antrian" readonly>
-                      <input type="hidden" name="id" class="form-control" value="<?php echo $row->id_antrian; ?>" placeholder="id Antrian" readonly> -->
-                        <button id="add" class="btn btn-primary"><i class="fa fa-arrow-circle-right"></i>
-                        Selanjutnya
-                        </button>
-                    <!-- </form> -->    
-                <!-- <?php endforeach; ?> -->
-                <button class="btn btn-primary" title="Reset" title="Reset" id="reset"><i class="fa fa-arrow-circle-left"></i>
-                Reset
+                <!-- <button id="add" class="btn btn-primary">
+                    <i class="fa fa-arrow-circle-right"></i>
+                    Selanjutnya
                 </button>
+                <button class="btn btn-primary" title="Reset" title="Reset" id="reset">
+                    <i class="fa fa-arrow-circle-left"></i>
+                    Reset
+                </button> -->
               </div>
             </div>
 
@@ -85,7 +81,7 @@
                     </thead>
                     <?php
                     foreach ($tb_pemesanan as $row) :
-                      $statusClass = $row->status_pemesanan == 'Aktif' ? 'badge badge-success' : 'badge badge-danger'
+                      $statusClass = $row->status_pemesanan == 'Sudah Dilayani' ? 'label label-success' : 'label label-danger'
                       ?>
                       <tbody class="show_product">
                         <tr class="odd gradeX">
@@ -96,7 +92,7 @@
                           <td><?php echo $row->waktu_pemesanan; ?></td>
                           <td><span class="<?php echo $statusClass ?>"><?= $row->status_pemesanan;?></span></td>
                           <td>
-                            <a href="<?php echo base_url('pemesanan/detail_pemesanan/'.$row->id_pemesanan) ?>" class="btn btn-primary btn-sm" title="detail"><i class="fa fa-edit"> Detail</i></a>
+                            <a href="<?php echo base_url('pemesanan/detail_pemesanan/'.$row->id_pemesanan) ?>" class="btn btn-info btn-sm" title="detail"><i class="fa fa-edit"> Detail</i></a>
                             <a href="<?php echo base_url('pemesanan/delete/' . $row->id_pemesanan) ?>" class="btn btn-danger btn-sm" title="Hapus" onClick="return confirm('Apakah anda yakin ingin menghapus data ini?');"><i class="fa fa-trash"> Hapus</i></a>
                           </td>
                         </tr>
