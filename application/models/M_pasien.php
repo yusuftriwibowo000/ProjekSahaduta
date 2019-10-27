@@ -146,7 +146,8 @@ class M_pasien extends CI_Model
 	public function save()
 	{
 		$post = $this->input->post();
-		$this->password = md5($post["password"]);
+		$password = $this->input->post("password");
+		$this->password = password_hash($password,PASSWORD_DEFAULT);
 		$this->nama_pasien = $post["nama_pasien"];
 		$this->tgl_lahir = date('Y-m-d',strtotime($post["tgl_lahir"]));
 		$this->umur = $post["umur"];
