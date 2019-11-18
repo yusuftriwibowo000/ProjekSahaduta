@@ -6,9 +6,9 @@ class UPemesanan extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		//$this->load->model('UM_dashboard2');
-		//$this->load->model('UM_login');
-		
+		$this->load->model('UM_dashboard2');
+		$this->load->model('UM_login');
+		cekloginuser();
 		//ceklogin();
 	}
 
@@ -18,7 +18,7 @@ class UPemesanan extends CI_Controller
 	
 		$data = array(
 			'title' => 'UPemesanan',
-			//'user'  => $this->db->get_where('tb_pasien', ['no_rm' => $this->session->userdata('no_rm')])->row_array()
+			'user'  => $this->db->get_where('tb_pasien', ['no_rm' => $this->session->userdata('no_rm')])->row_array()
 		);
 		$this->load->view('UPemesanan', $data);
 	}

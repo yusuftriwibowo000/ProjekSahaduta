@@ -38,7 +38,7 @@ class ULogin extends CI_Controller
                     redirect('UDashboard2');
                 
             }else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">No. RM/Password Salah</div>');
                 redirect('Ulogin');
             // } else {
             //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">username is not active!</div>');
@@ -55,13 +55,13 @@ class ULogin extends CI_Controller
         );
         $this->load->view('dashboard', $data);
     }
-    function logout()
+    function logoutuser()
     {
         
         $no_rm = $this->session->userdata('no_rm');
-        $this->M_login->logout($no_rm);
+        $this->UM_login->logout($no_rm);
         $this->session->unset_userdata('no_rm');
         
-        redirect('Ulogin');
+        redirect('ulogin');
     }
 }

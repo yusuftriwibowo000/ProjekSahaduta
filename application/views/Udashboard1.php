@@ -6,9 +6,7 @@
 </head>
 
 <body data-spy="scroll" data-target=".mainmenu-area">
-    <div class="preloader">
-        <span><i class="lnr lnr-sun"></i></span>
-    </div>
+  
     <!-- MainMenu-Area -->
     <nav class="mainmenu-area" data-spy="affix" data-offset-top="200">
         <div class="container-fluid">

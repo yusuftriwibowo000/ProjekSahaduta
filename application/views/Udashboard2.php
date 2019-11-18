@@ -6,9 +6,7 @@
 </head>
 
 <body data-spy="scroll" data-target=".mainmenu-area">
-    <div class="preloader">
-        <span><i class="lnr lnr-sun"></i></span>
-    </div>
+    
     <!-- MainMenu-Area -->
     <nav class="mainmenu-area" data-spy="affix" data-offset-top="200">
         <div class="container-fluid">
@@ -29,15 +27,7 @@
                         <li><a href="<?= base_url('Ukomentar'); ?>">Komentar</a></li>
                     
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <span class="fas fa-user-cog" ><?= $user['nama_pasien']; ?></span>
-                            <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="has-children"><a href="<?= base_url('password'); ?>">Ganti Password</a></li>
-                                <li class="has-children"><a href="<?= base_url('login/logout'); ?>"><i class=" fa fa-sign-out pull-right"></i> Log Out</a></li>
-                            </ul>
+                        <li><a href="<?= base_url('uprofile'); ?>" class="nav navbar-nav mainmenu"><span class="fas fa-user-alt">&nbsp;&nbsp;<?= $user['nama_pasien']; ?></span></a>
                         </li>
                     </ul>
                     </ul>

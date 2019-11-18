@@ -7,9 +7,8 @@ class UDashboard2 extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('UM_dashboard2');
-		//$this->load->model('M_login');
-		
-		//ceklogin();
+		$this->load->model('UM_login');
+		cekloginuser();
 	}
 
 	public function index()

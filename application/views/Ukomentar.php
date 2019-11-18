@@ -7,26 +7,32 @@
 
 <body data-spy="scroll" data-target=".mainmenu-area">
     <!-- Preloader-content -->
-    <div class="preloader">
-        <span><i class="lnr lnr-sun"></i></span>
-    </div>
+    
     <!-- MainMenu-Area -->
     <nav class="mainmenu-area" data-spy="affix" data-offset-top="200">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#primary_menu">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><img src="images/logo.jpg" alt="Logo"></a>
-            </div>
-            <div class="collapse navbar-collapse" id="primary_menu">
-                <ul class="nav navbar-nav mainmenu">
-                    <li><a href="<?= base_url('UDashboard2'); ?>">Home</a></li>
-                    <li ><a href="<?= base_url('UPemesanan'); ?>">Pemesanan</a></li>
-                    <li class="active"><a href="<?= base_url('UKomentar'); ?>">Komentar</a></li>
-                </ul>
+            <div class="row">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#primary_menu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand"><img src="images/logo.jpg" alt="Logo"></a>
+                    
+                </div>
+                <div class="collapse navbar-collapse" class="main-nav d-none d-lg-block" id="primary_menu">
+                    <ul class="nav navbar-nav mainmenu">
+                        <li><a href="<?= base_url('UDashboard2'); ?>">Home</a></li>
+                        <li><a href="<?= base_url('UPemesanan'); ?>">Pemesanan</a></li>
+                        <li  class="active"><a href="<?= base_url('Ukomentar'); ?>">Komentar</a></li>
+                    
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="<?= base_url('uprofile'); ?>" class="nav navbar-nav mainmenu"><span class="fas fa-user-alt">&nbsp;&nbsp;<?= $user['nama_pasien']; ?></span></a>
+                        </li>
+                    </ul>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
