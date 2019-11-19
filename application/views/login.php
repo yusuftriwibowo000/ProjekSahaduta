@@ -31,7 +31,7 @@
                         <h1>Login Form</h1>
                         <div>
                             <?= $this->session->flashdata('message'); ?>
-                            <input required="" type="text" name="username" class="form-control" placeholder="Username" value="<?= set_value('username'); ?>">
+                            <input required="" type="text" name="username" class="form-control" placeholder="Username" value="<?= set_value('username'); ?>" autofocus>
                             <?= form_error('username', '<small class = "text-danger pl-3">', '</small>'); ?>
                         </div>
                         <div>

@@ -26,25 +26,31 @@ class Pasien extends CI_Controller
 
 	public function add()
 	{
+		// $cek = $this->db->query("SELECT * FROM tb_pasien where NIK ='" . $this->input->post('NIK') . "'");
 		$pasien = $this->M_pasien;
 		$validation = $this->form_validation;
 		$validation->set_rules($pasien->rules());
 
-		if ($validation->run() === FALSE) {
+		if ($validation->run() == FALSE) {
 			$data = array(
 				'title'   	    => 'Tambah Data Pasien',
 				'isi'     		=> 'pasien/tambah_pasien',
 				'tb_agama'		=> $pasien->getAgama(),
 				'tb_pendidikan' => $pasien->getPendidikan(),
-				'tb_pekerjaan' => $pasien->getPekerjaan(),
+				'tb_pekerjaan'  => $pasien->getPekerjaan(),
 				'tb_jenis_kelamin' => $pasien->getJenisKelamin(),
 				'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
 			);
 			$this->load->view("dashboard",$data);
-		} else {
+		}
+		// elseif($cek->num_rows() >= 1){
+		// 	$this->session->set_flashdata('error', '<h2> NIK <strong>' . $this->input->post('NIK') . '</strong> sudah ada, Silakan isi NIK lain !</h2>');
+  //           redirect('Pasien/add');
+		// }
+		else {
 			$pasien->save();
 			$this->session->set_flashdata('success', 'Berhasil disimpan');
-			redirect(base_url('pasien'));
+			redirect(base_url('Pasien'));
 		}
 	}
 

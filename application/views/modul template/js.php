@@ -129,7 +129,6 @@
         });
     </script>
 
-
 <!-- jQuery -->
 <script src="<?= base_url(); ?>vendors/jquery/dist/jquery.min.js"></script>
 <!-- <script src="<?php echo base_url(); ?>vendors/jquery/dist/jquery.js"></script> -->

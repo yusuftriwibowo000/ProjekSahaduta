@@ -50,14 +50,6 @@
                     <i class="fa fa-plus"></i>
                     Ambil Antrian
                 </button>
-                <!-- <button id="add" class="btn btn-primary">
-                    <i class="fa fa-arrow-circle-right"></i>
-                    Selanjutnya
-                </button>
-                <button class="btn btn-primary" title="Reset" title="Reset" id="reset">
-                    <i class="fa fa-arrow-circle-left"></i>
-                    Reset
-                </button> -->
               </div>
             </div>
 
@@ -79,11 +71,11 @@
                         <th width="200">Action</th>
                       </tr>
                     </thead>
-                    <?php
+                   <?php
                     foreach ($tb_pemesanan as $row) :
                       $statusClass = $row->status_pemesanan == 'Sudah Dilayani' ? 'label label-success' : 'label label-danger'
                       ?>
-                      <tbody class="show_product">
+                      <tbody>
                         <tr class="odd gradeX">
                           <th scope="row"><?php echo $row->no_antrian; ?></th>
                           <td><?php echo $row->no_rm; ?></td>
@@ -123,7 +115,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <?php
+       <?php
         echo validation_errors('<div class="alert alert-warning">', '</div>');
         //error
         if (($this->session->flashdata('error'))) {
@@ -161,7 +153,7 @@
 <script type="text/javascript" src="<?php echo base_url()?>vendors/jquery/dist/jquery.js"></script>
 
 
-<!-- <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+<script src="https://js.pusher.com/4.4/pusher.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script>
         $(document).ready(function(){
@@ -184,7 +176,7 @@
             });
 
             // FUNCTION SHOW PRODUCT
-            function show_product(){
+            function show_product(){ 
                 $.ajax({
                     url   : '<?php echo base_url("Pemesanan/ambilData");?>',
                     type  : 'GET',
@@ -192,15 +184,15 @@
                     dataType : 'json',
                     success : function(data){
                         var html = '';
-                        // var count = 1;
                         var i;
                         for(i=0; i<data.length; i++){
                             html += '<tr class="odd gradeX">'+
-                                    '<th class="row">'+ data[i].nomor_antrian +'</td>'+
+                                    '<th class="row">'+ data[i].no_antrian +'</th>'+
                                     '<td>'+ data[i].no_rm +'</td>'+
                                     '<td>'+ data[i].nama_pasien +'</td>'+
                                     '<td>'+ data[i].jenis_kelamin +'</td>'+
                                     '<td>'+ data[i].waktu_pemesanan +'</td>'+
+                                    '<td>'+ data[i].status_pemesanan +'</td>'+
                                     '<td>'+
                                         '<a href="javascript:void(0);" class="btn btn-sm btn-info item_edit" data-id="'+ data[i].product_id +'" data-name="'+ data[i].product_name +'" data-price="'+ data[i].product_price +'">Edit</a>'+
                                         '<a href="javascript:void(0);" class="btn btn-sm btn-danger item_delete" data-id="'+ data[i].product_id +'">Delete</a>'+
@@ -212,31 +204,38 @@
 
                 });
             }
-</script> -->
 
+            // CREATE NEW PRODUCT
+            // $('.btn-save').on('click',function(){
+            //     var no_rm = $('.noRM').val();
+            //     var no_antrian = $('.noAntrian').val();
+            //     $.ajax({
+            //         url    : '<?php echo base_url("Pemesanan/create");?>',
+            //         method : 'POST',
+            //         data   : {no_rm: no_rm, no_antrian: no_antrian},
+            //         success: function(){
+            //             $('#myModal').modal('hide');
+            //             $('.noRM').val("");
+            //             $('.noAntrian').val("");
+            //         }
+            //     });
+            // });
+            // END CREATE PRODUCT
 
-    <!-- <script type="text/javascript">
-
-      ambilData();
-      function ambilData(){
-        $.ajax({
-          type:'POST',
-          url:'<?php echo base_url('Pemesanan/ambilData')?>',
-          dataType:'json',
-          success: function(data){
-            var baris='';
-            for(var i=0; i<data.length; i++){
-              baris += '<tr class="odd gradeX">' +
-                             '<th scope="row">'+ data[i].no_antrian +'</th>'+
-                             '<td>'+ data[i].no_rm +' </td>'+
-                             '<td>'+ data[i].nama_pasien +'</td>'+
-                             '<td>'+ data[i].jenis_kelamin +'</td>'+
-                             '<td>'+ data[i].waktu_pemesanan +'</td>'+
-                        '</tr>';    
-            }
-            $('#target').html(baris);
-          }
         });
-      }
-    </script> -->    
+</script>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5dc90dc943be710e1d1cae13/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
 <?php echo form_close(); ?>
