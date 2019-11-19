@@ -13,7 +13,7 @@ class Password extends CI_Controller
     {
         $data = array(
             'title' => 'Ganti Password',
-            'user'  => $this->db->get_where('tb_pegawai', ['email' => $this->session->userdata('email')])->row_array(),
+            'user'  => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array(),
             'isi'   => 'password/password'
         );
 
@@ -36,7 +36,7 @@ class Password extends CI_Controller
                 } else {
                     $password_md5 = md5($passwordBaru);
                     $this->db->set('pass', $password_md5);
-                    $this->db->where('email', $this->session->userdata('email'));
+                    $this->db->where('username', $this->session->userdata('username'));
                     $this->db->update('tb_pegawai');
                     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password Berhasil Diubah</div>');
                     redirect('password');
