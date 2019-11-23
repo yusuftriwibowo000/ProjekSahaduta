@@ -96,7 +96,7 @@ class M_pasien extends CI_Model
 			[
 				'field' => 'NIK',
 				'label' => 'NIK',
-				'rules' => 'required'
+				'rules' => 'required|numeric|min_length[16]'
 			],
 		];
 	}

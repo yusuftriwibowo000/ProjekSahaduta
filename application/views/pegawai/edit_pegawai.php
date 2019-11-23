@@ -60,10 +60,10 @@
 								</div>
 							</div> -->
 							<div class="form-group">
-								<label for="email">Email</label>
-								<input type="text" name="email" class="form-control <?php echo form_error('email') ? 'is-invalid' : '' ?>" placeholder="Email" value="<?php echo $detail->email ?>">
+								<label for="username">Username</label>
+								<input type="text" name="email" class="form-control <?php echo form_error('username') ? 'is-invalid' : '' ?>" placeholder="Username" value="<?php echo $detail->username ?>">
 								<div class="invalid-feedback">
-									<?php echo form_error('email') ?>
+									<?php echo form_error('username') ?>
 								</div>
 							</div>
 							<div class="form-group">

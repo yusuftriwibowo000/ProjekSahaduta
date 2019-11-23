@@ -31,7 +31,34 @@ class Pemesanan extends CI_Controller
                 'user'         => $this->db->get_where('tb_pegawai', ['username' => $this->session->userdata('username')])->row_array()
             );
             $this->load->view('dashboard', $data); //memuat view modul template
-        } else {
+         } 
+         else {
+            $cek = $this->db->query("SELECT * FROM tb_pemesanan where tgl_pemesanan=curdate() && status_pemesanan='Belum Dilayani' && no_rm ='" . $this->input->post('no_rm') . "'");
+            $adaPasien = $this->db->query("SELECT * FROM tb_pasien where no_rm ='" . $this->input->post('no_rm') . "'");
+            // $antriNow = $this->db->query("SELECT nomor_antrian FROM tb_antrian where tgl_antrian=curdate()");
+
+            if ($cek->num_rows() >= 1) {
+                $this->session->set_flashdata('error', '<h2>Nomor RM <strong>' . $this->input->post('no_rm') . '</strong> sudah antri, Silakan isi Nomor RM lain !</h2>');
+                redirect('Pemesanan');
+            } else if ($adaPasien->num_rows() == 0) {
+                $this->session->set_flashdata('error', '<h2>Nomor RM <strong>' . $this->input->post('no_rm') . '</strong> belum terdaftar, Silakan isi Nomor RM yang sudah terdaftar !</h2>');
+                redirect('Pemesanan');
+            } else {
+                //masuk database
+                $this->M_pemesanan->save(); //simpan data
+                $this->session->set_flashdata('success', '<strong><h2>Berhasil menambah antrian</h2></strong>');  //tampilkan pesan sukses
+                redirect(base_url('pemesanan'));  //mengarahkan halaman ke controller pemesanan
+            }
+        }
+    }
+
+    function create(){
+        $validation = $this->form_validation;
+        $validation->set_rules('no_rm','No_RM','required', array('required' => '<h2>Nomor RM harus diisi</h2>'));
+        if($validation->run()){
+            $this->M_pemesanan->save(); //simpan data
+            $this->session->set_flashdata('success', '<strong><h2>Berhasil menambah antrian</h2></strong>');  //tampilkan pesan sukses
+        }else {
             $cek = $this->db->query("SELECT * FROM tb_pemesanan where tgl_pemesanan=curdate() && no_rm ='" . $this->input->post('no_rm') . "'");
             $adaPasien = $this->db->query("SELECT * FROM tb_pasien where no_rm ='" . $this->input->post('no_rm') . "'");
             // $antriNow = $this->db->query("SELECT nomor_antrian FROM tb_antrian where tgl_antrian=curdate()");
@@ -42,13 +69,23 @@ class Pemesanan extends CI_Controller
             } else if ($adaPasien->num_rows() == 0) {
                 $this->session->set_flashdata('error', '<h2>Nomor RM <strong>' . $this->input->post('no_rm') . '</strong> belum terdaftar, Silakan isi Nomor RM yang sudah terdaftar !</h2>');
                 redirect('pemesanan');
-            } else {
-                //masuk database
-                $this->M_pemesanan->save(); //simpan data
-                $this->session->set_flashdata('success', '<strong><h2>Berhasil menambah antrian</h2></strong>');  //tampilkan pesan sukses
-                redirect(base_url('pemesanan'));  //mengarahkan halaman ke controller pemesanan
             }
         }
+
+        require_once(APPPATH.'views/vendor/autoload.php');
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher\Pusher(
+            'a1e095bed9535a20e287', //ganti dengan App_key pusher Anda
+            '338c42efee9dfe3b940a', //ganti dengan App_secret pusher Anda
+            '874582', //ganti dengan App_key pusher Anda
+            $options
+        );
+ 
+        $data['message'] = 'success';
+        $pusher->trigger('my-channel', 'my-event', $data);
     }
 
     //hapus data berdasarkan id_pemesanan
@@ -121,9 +158,11 @@ class Pemesanan extends CI_Controller
         echo json_encode($data);
     }
 
-    public function ambilData()
+    function ambilData()
     {
         $dataPasien = $this->M_pemesanan->getAll_antri();
         echo json_encode($dataPasien);
     }
+
+
 }

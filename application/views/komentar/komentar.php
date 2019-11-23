@@ -22,6 +22,7 @@
                                 <th class="column-title">No </th>
                                 <th class="column-title">No RM </th>
                                 <th class="column-title">Nama Pasien</th>
+                                <th class="column-title">Rating</th>
                                 <th class="column-title">Kritik </th>
                                 <th class="column-title">Saran </th>
                                 <th class="column-title no-link last"><span class="nobr">Action</span>
@@ -37,6 +38,7 @@
                                 <tr>
                                     <td><?php echo $no; ?></td>
                                     <td><?php echo $row->no_rm; ?></td>
+                                    <td></td>
                                     <td></td>
                                     <td><?php echo $row->Kritik; ?></td>
                                     <td><?php echo $row->saran; ?></td>

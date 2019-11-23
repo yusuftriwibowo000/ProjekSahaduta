@@ -13,38 +13,31 @@
               <tr>
                 <th>No.RM</th>
                 <th>Nama Pasien</th>
-                <th>Tanggal Lahir</th>
-                <th>Umur</th>
-                <th>Alamat</th>
-                <th>Nama KK</th>
-                <th>Agama</th>
-                <th>Pendidikan</th>
-                <th>Pekerjaan</th>
                 <th>Jenis Kelamin</th>
-                <th>No.HP</th>
-                <th>NIK</th>
-                <th>Tanggal Pemesanan</th>
+                <th>Umur</th>
+                <th>Diagnosa ICDX</th>
+                <th>Pengobatan</th>
+                <th>Tindakan</th>
+                <th>Keadaan Keluar</th>
+                <th>Prognosa</th>
+                <th>Tanggal Periksa</th>
                 <th>Pegawai</th>
-                <!-- <th width="200">Action</th> -->
               </tr>
             </thead>
               <tbody>
                 <?php
-                  foreach ($laporan_bulanan as $row) :
+                  foreach ($laporan_penanganan_pasien as $row) :
                 ?>
                 <tr class="odd gradeX">
                   <th scope="row"><?php echo $row->no_rm; ?></th>
                   <td><?php echo $row->nama_pasien; ?></td>
-                  <td><?php echo $row->tgl_lahir; ?></td>
-                  <td><?php echo $row->umur; ?></td>
-                  <td><?php echo $row->alamat; ?></td>
-                  <td><?php echo $row->nama_kk; ?></td>
-                  <td><?php echo $row->agama; ?></td>
-                  <td><?php echo $row->pendidikan; ?></td>
-                  <td><?php echo $row->pekerjaan; ?></td>
                   <td><?php echo $row->jenis_kelamin; ?></td>
-                  <td><?php echo $row->no_hp; ?></td>
-                  <td><?php echo $row->NIK; ?></td>
+                  <td><?php echo $row->umur; ?></td>
+                  <td><?php echo $row->nama_icdx; ?></td>
+                  <td><?php echo $row->pengobatan; ?></td>
+                  <td><?php echo $row->tindakan; ?></td>
+                  <td><?php echo $row->keadaan_keluar; ?></td>
+                  <td><?php echo $row->prognosa; ?></td>
                   <td><?php echo $row->tgl_pemesanan; ?></td>
                   <td><?php echo $row->nama_pegawai; ?></td>
                   <!-- <td>

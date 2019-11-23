@@ -29,7 +29,7 @@
             </thead>
               <tbody>
                 <?php
-                  foreach ($laporan_semua as $row) :
+                  foreach ($laporan_kunjungan as $row) :
                 ?>
                 <tr class="odd gradeX">
                   <th scope="row"><?php echo $row->no_rm; ?></th>

@@ -19,7 +19,7 @@ class M_Komentar extends CI_Model
     {
         $post = $this->input->post();
         $this->no_rm = $post["no_rm"];
-        $this->nama_pasien = $post["nama_pasien"];
+        // $this->nama_pasien = $post["nama_pasien"];
         $this->saran = $post["saran"];
         $this->kritik = $post["kritik"];
 

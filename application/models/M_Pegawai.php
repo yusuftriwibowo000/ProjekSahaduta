@@ -20,7 +20,7 @@ class M_Pegawai extends CI_Model
         $this->db->select('*');
         $this->db->from('tb_pegawai');
         $this->db->join('tb_status', 'tb_pegawai.id_status = tb_status.id_status');
-        $this->db->where('tb_pegawai.id_status=2');
+        $this->db->where('tb_pegawai.id_status = 2');
         $query = $this->db->get();
         return $query->result();
     }
