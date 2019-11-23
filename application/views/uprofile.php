@@ -90,6 +90,7 @@
                                                             <td><?php echo $row->nama_pasien; ?></td>
                                                             <td><?php echo $row->tgl_pemesanan; ?></td>
                                                             <td><?php echo $row->nama_pegawai; ?></td>
+                                                            
                                                             </tr>
                                                         <?php endforeach; ?>
                                                         </tbody>
@@ -109,67 +110,23 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="card">
                         <div class="col-xs-12 col-lg-12 col-md-8">
-                            <article class="post-single sticky">
-                                
-                                <div class="dark-color" class="table-dark">
-                                    <h4 class="dark-color">Ganti Password</h4>
-                                    <div class="right_col" class="table-dark" role="main">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="card-body">
-                                                <div class="responsive">
-                                                    <div class="x_content">
-                                                        <br />
-                                                        <?= $this->session->flashdata('message'); ?>
-                                                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" href="" method="post">
-                                                            <div class="form-group">
-                                                                <label for="password_lama" class="control-label col-md-3 col-sm-3 col-xs-12">Password Lama</label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input class="form-control" placeholder="Enter Password Lama" name="password_lama" id="password_lama" type="password">
-                                                                </div>
-                                                                <?= form_error('password_lama', '<small class = "text-danger pl-3">', '</small>'); ?>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="password_baru1" class="control-label col-md-3 col-sm-3 col-xs-12">Password Baru</label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input class="form-control" placeholder="Enter Password Baru" name="password_baru1" id="password_baru1" type="password">
-                                                                </div>
-                                                                <?= form_error('password_baru1', '<small class = "text-danger pl-3">', '</small>'); ?>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="password_baru2" class="control-label col-md-3 col-sm-3 col-xs-12">Konfirmasi Password Baru</label>
-                                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                    <input class="form-control" placeholder="Konfirmasi Password" name="password_baru2" id="password_baru2" type="password">
-                                                                </div>
-                                                                <?= form_error('password_baru2', '<small class = "text-danger pl-3">', '</small>'); ?>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                                <a href="<?= base_url('UPemesanan'); ?>">
-                                                                    <button type="submit"class="btn btn-block btn-danger text-white py-5 px-7" 
-                                                                    value="">LOG OUT</button>
-                                                                </a>
-                                                                </div>
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="row justify-content-center">
-                                                    <nav class="mt-3">
-                                                                </nav>
-                                                </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 col-lg-2">
+                                        <br>
                                 </div>
-                            </article>
+                                <div class="col-md-6 mb-4 col-lg-8">
+                                        <a href="<?= base_url('UPassword'); ?>">
+                                            <button type="submit"class="btn btn-block btn-warning text-white py-5 px-7" 
+                                            value="">GANTI PASSWORD</button>
+                                        </a>
+                                </div>
+                                <div class="col-md-6 mb-4 col-lg-2">
+                                </div>
+                            </div>
                         </div>
-                    </div>
                 </div>
+                <br>
                 <div class="row">
                         <div class="col-xs-12 col-lg-12 col-md-8">
                             <div class="row">
